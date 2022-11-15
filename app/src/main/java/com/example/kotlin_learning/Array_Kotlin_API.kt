@@ -56,4 +56,10 @@ fun main() {
     Thread {
         println("Thread is running")
     }.start()
+
+    printParams(str = "sjy")
+}
+
+fun printParams(num: Int = 100, str: String) {
+    println("num is $num,str is $str")
 }
