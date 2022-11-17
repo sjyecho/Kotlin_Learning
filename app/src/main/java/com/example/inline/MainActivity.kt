@@ -3,6 +3,7 @@ package com.example.inline
 import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
+import android.database.DatabaseUtils
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
             putInt("age", 28)
             putBoolean("married", false)
         }
+
+        val values =
+            cvOf("name" to "Game of Thrones", "author" to "George Martin", "price" to "20.55")
+        // db.insert("Books",null,values)
     }
 
     /**
@@ -60,5 +65,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return cv
+    }
+
+    /**
+     * 使用apply函数
+     */
+    fun cvOF(vararg pairs: Pair<String, Any?>) = ContentValues().apply {
+        for (pair in pairs) {
+            val key = pair.first
+            val value = pair.second
+            when (value) {
+                is Int -> put(key, value)
+                is Long -> put(key, value)
+                is Short -> put(key, value)
+                is Float -> put(key, value)
+                is Double -> put(key, value)
+                is Boolean -> put(key, value)
+                is String -> put(key, value)
+                is Byte -> put(key, value)
+                is ByteArray -> put(key, value)
+                null -> putNull(key)
+            }
+        }
     }
 }
