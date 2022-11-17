@@ -10,7 +10,20 @@ package com.example.lazy
  */
 infix fun String.beginsWith(prefix: String) = startsWith(prefix)
 
+/**
+ * 使用泛型函数的定义方法，从而使得has()函数可以接收任意具体类型的参数
+ * 也就是has()函数和contains()函数的功能实际上是一模一样的，只是多了个infix关键字，从而拥有了infix函数的语法糖功能
+ */
+infix fun <T> Collection<T>.has(element: T) = contains(element)
+
 fun main() {
     if ("Hello Kotlin" beginsWith "Hello") println("true") else println("false")
 
+    val list = listOf("Apple", "Banana", "Orange", "Pear", "Grape")
+    if (list.contains("Banana")) {
+        // 处理具体的逻辑
+    }
+    if (list has "Banana"){
+        // 处理具体的逻辑
+    }
 }
