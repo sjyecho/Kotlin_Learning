@@ -1,5 +1,8 @@
 package com.example.t
 
+/**
+ * 泛型的逆变
+ */
 fun main() {
     val trans = object : Transformer<Person> {
         override fun transform(t: Person): String {
@@ -15,7 +18,7 @@ fun handleTransformer(trans: Transformer<Student>) {
     val result = trans.transform(student)
 }
 
-// 在下放T前加上in，上述handleTransformer(trans)即可通过编译
+// 在下方T前加上in，上述handleTransformer(trans)即可通过编译
 // 即意味着Transformer在泛型T上是逆变的
 interface Transformer<in T> {
     fun transform(t: T): String
