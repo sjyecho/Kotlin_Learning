@@ -28,13 +28,14 @@ class MainActivity : AppCompatActivity() {
         clearBtn = findViewById(R.id.clearBtn)
         val countReserved = sp.getInt("count_reserved", 0)
         viewModel = ViewModelProvider(this, MainViewModelFactory(countReserved)).get(MainViewModel::class.java)
+        plusOneBtn.setOnClickListener { viewModel.plusOne() }
+        clearBtn.setOnClickListener { viewModel.clear() }
 
-        plusOneBtn.setOnClickListener {
-            viewModel.plusOne()
-        }
-        clearBtn.setOnClickListener {
-            viewModel.clear()
-        }
+        /**
+         * observe()方法接收两个参数：
+         * 第一个参数是一个LifecycleOwner对象，Activity本身就是一个LifecycleOwner对象，因此直接传this就好
+         * 第二个参数是一个Observer接口，当counter中包含的数据发生变化时，就会回调到这里，因此在这里将最新的计数更新到界面上
+         */
         viewModel.counter.observe(this, Observer { count ->
             infoText.text = count.toString()
         })
